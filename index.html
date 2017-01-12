@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./index.js" defer></script>
+</head>
+<body>
+<template id="x-column-template">
+    <style>
+        p {
+            color: orange;
+        }
+
+    </style>
+    <p>Я шаблон колонки <span class="column"></span></p>
+    <slot></slot>
+</template>
+<template id="x-task-template">
+    <style>
+        p {
+            color: blue;
+        }
+        :host-context([id="todo"]) .controls .prev,
+        :host-context([id="done"]) .controls .next,
+        :host([first]) .controls .up,
+        :host([last]) .controls .down
+        {
+            border: solid red 1px;
+            opacity: 0.5;
+        }
+
+    </style>
+    <p>Я шаблон задачи <span class="task"></span></p>
+    <slot></slot>
+    <div class="controls">
+        <button class="next">-></button>
+        <button class="prev"><-</button>
+        <button class="up">^</button>
+        <button class="down">v</button>
+        <button class="delete">X</button>
+    </div>
+</template>
+<template id="app-drawer-template">
+    <style>
+        p {
+            color: green;
+        }
+
+    </style>
+    <p>Я шаблон приложения</p>
+    <x-column id="todo">
+        <slot name="todo"></slot>
+    </x-column>
+    <x-column id="inprogress">
+        <slot name="inprogress"></slot>
+    </x-column>
+    <x-column id="done">
+        <slot name="done"></slot>
+    </x-column>
+    <p>Я форма новой задачи</p>
+    <form id="send">
+        <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="text" name="description">
+        <input type="submit">
+    </form>
+</template>
+<div id="app"></div>
+</body>
+</html>
